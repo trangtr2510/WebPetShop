@@ -1,0 +1,249 @@
+/* CSS for the blog page */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.main-content {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.blog-container {
+    flex: 1;
+    max-width: 75%;
+    padding-right: 30px;
+}
+
+.sidebar {
+    flex: 0 0 25%;
+    padding-left: 15px;
+}
+
+.page-title {
+    font-size: 28px;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+/* Blog Grid Styling */
+.blog-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.featured-posts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.regular-posts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.blog-card {
+    border-radius: 5px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    background-color: #fff;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.blog-card a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.blog-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+}
+
+.blog-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.placeholder-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e0e0e0;
+    color: #666;
+    font-weight: bold;
+}
+
+.blog-card:hover .blog-image img {
+    transform: scale(1.05);
+}
+
+.blog-content {
+    padding: 15px;
+    background-color: #fff;
+}
+
+.blog-content h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.blog-content p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.blog-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #888;
+}
+
+/* No posts message */
+.no-posts {
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.no-posts p {
+    color: #666;
+    font-size: 16px;
+}
+
+/* Sidebar Styling */
+.sidebar-widget {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.sidebar-widget h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.sidebar-widget h3:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background-color: #333;
+}
+
+.latest-posts {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.latest-posts li {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.latest-posts li:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.latest-posts a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.post-number {
+    flex: 0 0 20px;
+    height: 20px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+.post-image {
+    flex: 0 0 60px;
+    height: 60px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-right: 10px;
+    background-color: #f5f5f5;
+}
+
+.post-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.post-content {
+    flex: 1;
+}
+
+.post-content h4 {
+    font-size: 14px;
+    margin: 0 0 5px;
+    color: #333;
+}
+
+.post-date {
+    font-size: 12px;
+    color: #888;
+}
+
+/* Responsive styling */
+@media (max-width: 992px) {
+    .blog-container {
+        max-width: 100%;
+        padding-right: 0;
+    }
+    
+    .sidebar {
+        flex: 0 0 100%;
+        padding-left: 0;
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .featured-posts,
+    .regular-posts {
+        grid-template-columns: 1fr;
+    }
+}
+

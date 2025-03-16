@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="/fontawesome-free-6.4.2-web/css/all.min.css">
+    <link rel="stylesheet" href="/style/admin_style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="top">
+            <div class="logo">
+                <i class="fa-solid fa-paw"></i>
+                <span> Website thú cưng</span>
+            </div>
+            <i class="fa-solid fa-bars" id="btn"></i>
+        </div>
+        <div class="user">
+           <img src="/petShopImages/Img/logo.webp" alt="" class="user-img">
+           <div>
+            <p class="bold">Group 8</p>
+            <p>Admin</p>
+           </div>
+        </div>
+        <ul>
+            <li>
+                <a href="#" id="pet-management-link">
+                    <i class="fa-solid fa-cat"></i>
+                    <span class="nav-item">Quản lý thú cưng</span>
+                </a>
+                <span class="tooltip">Quản lý thú cưng</span>
+            </li>
+            <li>
+                <a href="#" id="product-management-link">
+                    <i class="fa-solid fa-church"></i>
+                    <span class="nav-item">Quản lý sản phẩm</span>
+                </a>
+                <span class="tooltip">Quản lý sản phẩm</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-microphone-lines"></i>
+                    <span class="nav-item">Hỗ trợ khách hàng</span>
+                </a>
+                <span class="tooltip">Hỗ trợ khách hàng</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-truck-fast"></i>
+                    <span class="nav-item">Quản lý đơn hàng</span>
+                </a>
+                <span class="tooltip">Quản lý đơn hàng</span>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="main-content">
+        <!-- Product Management Section -->
+        <div class="container" id="product-management">
+            <div class="product-form">
+                <h1>Quản Lý Sản Phẩm</h1>
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="product-code">Mã sản phẩm:</label>
+                            <input type="text" id="product-code" class="form-control" value="Tự động tạo" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="product-name">Tên sản phẩm:</label>
+                            <input type="text" id="product-name" class="form-control" placeholder="Nhập tên sản phẩm">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="product-type">Loại:</label>
+                            <select id="product-type" class="form-control">
+                                <option>Thức ăn thú cưng</option>
+                                <option>Phụ kiện</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="product-price">Giá gốc:</label>
+                            <input type="text" id="product-price" class="form-control" placeholder="Nhập giá sản phẩm">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="product-discount">Giảm giá:</label>
+                            <input type="text" id="product-discount" class="form-control" placeholder="Nhập % giảm giá" value="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="product-description">Mô tả:</label>
+                            <textarea id="product-description" class="form-control" placeholder="Nhập mô tả chi tiết"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="image-preview">
+                        <div>
+                            <p>Hình ảnh</p>
+                            <button class="image-button">Chọn ảnh</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-add">Thêm</button>
+                    <button class="btn btn-edit">Sửa</button>
+                    <button class="btn btn-delete">Xóa</button>
+                </div>
+            </div>
+            
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>Mã SP</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Loại</th>
+                        <th>Giá bán</th>
+                        <th>Mô tả</th>
+                        <th>Ảnh</th>
+                        <th>Giảm giá</th>
+                        <th>Giá gốc</th>
+                        <th>Ngày thêm</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Products will be listed here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pet Management Section -->
+        <div class="container" id="pet-management">
+            <div class="product-form">
+                <h1>Quản Lý Thú Cưng</h1>
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="pet-code">Mã thú cưng:</label>
+                            <input type="text" id="pet-code" class="form-control" value="Tự động tạo" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="pet-name">Tên thú cưng:</label>
+                            <input type="text" id="pet-name" class="form-control" placeholder="Nhập tên thú cưng">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="pet-type">Loại:</label>
+                            <select id="pet-type" class="form-control">
+                                <option>Chó</option>
+                                <option>Mèo</option>
+                                <option>Thỏ</option>
+                                <option>Chim</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="pet-breed">Giống:</label>
+                            <input type="text" id="pet-breed" class="form-control" placeholder="Nhập giống thú cưng">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="pet-age">Tuổi:</label>
+                            <input type="text" id="pet-age" class="form-control" placeholder="Nhập tuổi thú cưng">
+                        </div>
+        
+                        <div class="form-group">
+                            <label for="pet-gender">Giới tính:</label>
+                            <input type="text" id="pet-gender" class="form-control" placeholder="Nhập giới tính thú cưng">
+                        </div>
+        
+                        <div class="form-group">
+                            <label for="pet-price">Giá bán:</label>
+                            <input type="text" id="pet-price" class="form-control" placeholder="Nhập giá thú cưng">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="pet-description">Mô tả:</label>
+                            <textarea id="pet-description" class="form-control" placeholder="Nhập mô tả chi tiết"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="image-preview">
+                        <div>
+                            <p>Hình ảnh</p>
+                            <button class="image-button">Chọn ảnh</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-add">Thêm</button>
+                    <button class="btn btn-edit">Sửa</button>
+                    <button class="btn btn-delete">Xóa</button>
+                </div>
+            </div>
+            
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>Mã thú cưng</th>
+                        <th>Tên thú cưng</th>
+                        <th>Loài</th>
+                        <th>Giống</th>
+                        <th>Tuổi</th>
+                        <th>Giới tính</th>
+                        <th>Giá bán</th>
+                        <th>Mô tả</th>
+                        <th>Hình ảnh</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Pets will be listed here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Sidebar toggle
+        let btn = document.querySelector('#btn');
+        let sidebar = document.querySelector('.sidebar');
+        
+        btn.onclick = function() {
+            sidebar.classList.toggle('active');
+        };
+        
+        // Navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get navigation links
+            const productLink = document.getElementById('product-management-link');
+            const petLink = document.getElementById('pet-management-link');
+            
+            // Get content containers
+            const productManagement = document.getElementById('product-management');
+            const petManagement = document.getElementById('pet-management');
+            
+            // Function to show product management
+            function showProductManagement() {
+                // Hide all containers
+                document.querySelectorAll('.container').forEach(container => {
+                    container.classList.remove('active');
+                });
+                
+                // Show product management
+                productManagement.classList.add('active');
+            }
+            
+            // Function to show pet management
+            function showPetManagement() {
+                // Hide all containers
+                document.querySelectorAll('.container').forEach(container => {
+                    container.classList.remove('active');
+                });
+                
+                // Show pet management
+                petManagement.classList.add('active');
+            }
+            
+            // Add click event listeners
+            productLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                showProductManagement();
+            });
+            
+            petLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                showPetManagement();
+            });
+            
+            // Show product management by default
+            showProductManagement();
+        });
+    </script>
+</body>
+</html>
