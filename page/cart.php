@@ -126,17 +126,17 @@ if (isset($_GET['remove'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giỏ hàng</title>
-    <link rel="stylesheet" href="/WebPetShop/fontawesome-free-6.4.2-web/css/all.min.css">
-    <link rel="stylesheet" href="/WebPetShop/style/style.css">
-    <link rel="stylesheet" href="/WebPetShop/style/cart_style.css">
-    <link rel="stylesheet" href="/WebPetShop/style/product_style.css">
+    <link rel="stylesheet" href="../fontawesome-free-6.4.2-web/css/all.min.css">
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/cart_style.css">
+    <link rel="stylesheet" href="../style/product_style.css">
 </head>
 <body>
 
     <!-- Header -->
     <header id="myHeader">
         <div class="logo">
-            <img src="/WebPetShop/petShopImages/Img/logo.webp" alt="" onclick="window.location.href='index.php'"
+            <img src="../petShopImages/Img/logo.webp" alt="" onclick="window.location.href='index.php'"
             style = 'cursor: pointer;'>
         </div>
         <div class="menu">
@@ -188,9 +188,9 @@ if (isset($_GET['remove'])) {
                         <div class="cart-item">
                             <div class="item-image">
                                 <?php if ($item['MaSP']): ?>
-                                    <img src="/WebPetShop/petShopImages/Img/<?php echo $item['HinhAnhSP']; ?>" alt="<?php echo $item['TenSP']; ?>">
+                                    <img src="../petShopImages/Img/<?php echo $item['HinhAnhSP']; ?>" alt="<?php echo $item['TenSP']; ?>">
                                 <?php else: ?>
-                                    <img src="/WebPetShop/petShopImages/Img/<?php echo $item['HinhAnhTC']; ?>" alt="<?php echo $item['TenThuCung']; ?>">
+                                    <img src="../petShopImages/Img/<?php echo $item['HinhAnhTC']; ?>" alt="<?php echo $item['TenThuCung']; ?>">
                                 <?php endif; ?>
                             </div>
                             
@@ -289,7 +289,7 @@ if (isset($_GET['remove'])) {
     <footer id="footer">
         <div class="footer_top w-70">
             <div class="img">
-                <img src="/WebPetShop/petShopImages/Img/logo.webp" alt="">
+                <img src="../petShopImages/Img/logo.webp" alt="">
             </div>
             <div class="menu">
                 <ul>

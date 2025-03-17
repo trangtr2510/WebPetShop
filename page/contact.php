@@ -78,15 +78,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liên hệ - PetPro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="/WebPetShop/fontawesome-free-6.4.2-web/css/all.min.css">
-    <link rel="stylesheet" href="/WebPetShop/style/style.css">
-    <link rel="stylesheet" href="/WebPetShop/style/contact_style.css">
+    <link rel="stylesheet" href="../fontawesome-free-6.4.2-web/css/all.min.css">
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/contact_style.css">
 </head>
 <body>
     <!-- Header -->
     <header id="myHeader">
         <div class="logo">
-            <img src="/WebPetShop/petShopImages/Img/logo.webp" alt="" onclick="window.location.href='index.php'"
+            <img src="../petShopImages/Img/logo.webp" alt="" onclick="window.location.href='index.php'"
             style = 'cursor: pointer;'>
         </div>
         <div class="menu">
@@ -224,7 +224,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      <footer id="footer">
         <div class="footer_top w-70">
             <div class="img">
-                <img src="/WebPetShop/petShopImages/Img/logo.webp" alt="">
+                <img src="../petShopImages/Img/logo.webp" alt="">
             </div>
             <div class="menu">
                 <ul>

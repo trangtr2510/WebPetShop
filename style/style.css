@@ -109,7 +109,7 @@ header .header_right .rel .total{
 .banner{
     width: 100%;
     height: 75vh;
-    background-image: url('/WebPetShop/petShopImages/Img/banner.webp');
+    background-image: url('../petShopImages/Img/banner.webp');
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -377,7 +377,7 @@ header .header_right .rel .total{
 .second_banner{
     width: 100%;
     height: 70vh;
-    background-image: url('/WebPetShop/petShopImages/Img/shopnow_banner.webp');
+    background-image: url('../petShopImages/Img/shopnow_banner.webp');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -706,7 +706,7 @@ button:hover{
 .bf_banner{
     width: 100%;
     height: 96vh;
-    background-image: url('/WebPetShop/petShopImages/Img/big_banner.webp');
+    background-image: url('../petShopImages/Img/big_banner.webp');
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;

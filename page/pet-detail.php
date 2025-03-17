@@ -121,15 +121,15 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $pet['TenThuCung']; ?> - Chi tiết thú cưng</title>
-    <link rel="stylesheet" href="/WebPetShop/fontawesome-free-6.4.2-web/css/all.min.css">
-    <link rel="stylesheet" href="/WebPetShop/style/style.css">
-    <link rel="stylesheet" href="/WebPetShop/style/product_detail_style.css">
+    <link rel="stylesheet" href="../fontawesome-free-6.4.2-web/css/all.min.css">
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/product_detail_style.css">
 </head>
 <body>
     <!-- Header -->
     <header id="myHeader">
         <div class="logo">
-            <img src="/WebPetShop/petShopImages/Img/logo.webp" alt="" onclick="window.location.href='index.php'"
+            <img src="../petShopImages/Img/logo.webp" alt="" onclick="window.location.href='index.php'"
             style = 'cursor: pointer;'>
         </div>
         <div class="menu">
@@ -164,14 +164,14 @@ $conn->close();
         <!-- Chi tiết thú cưng -->
         <div class="product-detail">
             <div class="product-images">
-                <img src="/WebPetShop/petShopImages/Img/<?php echo $pet['HinhAnh']; ?>" alt="<?php echo $pet['TenThuCung']; ?>" class="main-image">
+                <img src="../petShopImages/Img/<?php echo $pet['HinhAnh']; ?>" alt="<?php echo $pet['TenThuCung']; ?>" class="main-image">
                 <div class="thumbnail-images">
-                    <img src="/WebPetShop/petShopImages/Img/<?php echo $pet['HinhAnh']; ?>" alt="Thumbnail 1" class="thumbnail active">
+                    <img src="../petShopImages/Img/<?php echo $pet['HinhAnh']; ?>" alt="Thumbnail 1" class="thumbnail active">
                     <?php if (isset($pet['HinhAnhPhu1']) && !empty($pet['HinhAnhPhu1'])): ?>
-                        <img src="/WebPetShop/petShopImages/Img/<?php echo $pet['HinhAnhPhu1']; ?>" alt="Thumbnail 2" class="thumbnail">
+                        <img src="../petShopImages/Img/<?php echo $pet['HinhAnhPhu1']; ?>" alt="Thumbnail 2" class="thumbnail">
                     <?php endif; ?>
                     <?php if (isset($pet['HinhAnhPhu2']) && !empty($pet['HinhAnhPhu2'])): ?>
-                        <img src="/WebPetShop/petShopImages/Img/<?php echo $pet['HinhAnhPhu2']; ?>" alt="Thumbnail 3" class="thumbnail">
+                        <img src="../petShopImages/Img/<?php echo $pet['HinhAnhPhu2']; ?>" alt="Thumbnail 3" class="thumbnail">
                     <?php endif; ?>
                 </div>
             </div>
@@ -289,12 +289,14 @@ $conn->close();
             <div class="related-product-list">
                 <?php foreach ($relatedPets as $related): ?>
                 <div class="related-product-item">
-                    <img src="/WebPetShop/petShopImages/Img/<?php echo $related['HinhAnh']; ?>" alt="<?php echo $related['TenThuCung']; ?>" class="related-product-img">
+                    <img src="../petShopImages/Img/<?php echo $related['HinhAnh']; ?>" alt="<?php echo $related['TenThuCung']; ?>" class="related-product-img">
                     <div class="related-product-info">
                         <h4 class="related-product-title"><?php echo $related['TenThuCung']; ?></h4>
                         <p class="related-pet-breed"><?php echo $related['Giong']; ?></p>
                         <div class="related-product-price"><?php echo number_format($related['GiaBan'], 0); ?>K VND</div>
-                        <button class="view-product-btn" onclick="window.location.href='pet_detail.php?id=<?php echo $related['MaThuCung']; ?>'">Xem chi tiết</button>
+                        <a href="pet-detail.php?id=<?php echo $related['MaThuCung']; ?>">
+                            <button class="view-product-btn">Xem chi tiết</button>
+                        </a>
                     </div>
                 </div>
                 <?php endforeach; ?>
@@ -307,7 +309,7 @@ $conn->close();
     <footer id="footer">
         <div class="footer_top w-70">
             <div class="img">
-                <img src="/WebPetShop/petShopImages/Img/logo.webp" alt="">
+                <img src="../petShopImages/Img/logo.webp" alt="">
             </div>
             <div class="menu">
                 <ul>

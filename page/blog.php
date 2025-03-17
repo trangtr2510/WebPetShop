@@ -298,16 +298,16 @@ $latestPosts = getLatestPosts($conn);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tin tức - Nutrience Việt Nam</title>
-    <link rel="stylesheet" href="/WebPetShop/fontawesome-free-6.4.2-web/css/all.min.css">
-    <link rel="stylesheet" href="/WebPetShop/style/style.css">
-    <link rel="stylesheet" href="/WebPetShop/style/blog_style.css">
+    <title>Tin tức</title>
+    <link rel="stylesheet" href="../fontawesome-free-6.4.2-web/css/all.min.css">
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/blog_style.css">
 </head>
 <body>
     <!-- Header -->
     <header id="myHeader">
         <div class="logo">
-            <img src="/WebPetShop/petShopImages/Img/logo.webp" alt="" onclick="window.location.href='index.php'"
+            <img src="../petShopImages/Img/logo.webp" alt="" onclick="window.location.href='index.php'"
             style = 'cursor: pointer;'>
         </div>
         <div class="menu">
@@ -431,7 +431,7 @@ $latestPosts = getLatestPosts($conn);
     <footer id="footer">
         <div class="footer_top w-70">
             <div class="img">
-                <img src="/WebPetShop/petShopImages/Img/logo.webp" alt="">
+                <img src="../petShopImages/Img/logo.webp" alt="">
             </div>
             <div class="menu">
                 <ul>

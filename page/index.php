@@ -90,14 +90,14 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet Shop</title>
-    <link rel="stylesheet" href="/WebPetShop/fontawesome-free-6.4.2-web/css/all.min.css">
-    <link rel="stylesheet" href="/WebPetShop/style/style.css">
+    <link rel="stylesheet" href="../fontawesome-free-6.4.2-web/css/all.min.css">
+    <link rel="stylesheet" href="../style/style.css">
 </head>
 <body>
     <!-- Header -->
     <header id="myHeader">
         <div class="logo">
-            <img src="/WebPetShop/petShopImages/Img/logo.webp" alt="" onclick="window.location.href='index.php'"
+            <img src="../petShopImages/Img/logo.webp" alt="" onclick="window.location.href='index.php'"
             style = 'cursor: pointer;'>
         </div>
         <div class="menu">
@@ -209,7 +209,7 @@ $conn->close();
                 <?php foreach ($products as $product): ?>
                 <div class="food_items">
                     <div class="img">
-                        <img src="/WebPetShop/petShopImages/Img/<?php echo $product['HinhAnh']; ?>" alt="<?php echo $product['TenSP']; ?>">
+                        <img src="../petShopImages/Img/<?php echo $product['HinhAnh']; ?>" alt="<?php echo $product['TenSP']; ?>">
                     </div>
                     <div class="food_details">
                         <div class="review">
@@ -246,7 +246,7 @@ $conn->close();
             <div class="pet_list">
                 <div class="single_pet">
                     <div class="img">
-                        <img src="/WebPetShop/petShopImages/Img/dog.webp" alt="">
+                        <img src="../petShopImages/Img/dog.webp" alt="">
                         <!-- svg -->
                         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 288 288"><path 
                             style="fill:#f6f6f6"><animate repeatCount="indefinite" attributeName="d" dur="5s" 
@@ -271,7 +271,7 @@ $conn->close();
 
                 <div class="single_pet">
                     <div class="img">
-                        <img src="/WebPetShop/petShopImages/Img/cat.webp" alt="">
+                        <img src="../petShopImages/Img/cat.webp" alt="">
                         <!-- svg -->
                         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 288 288"><path 
                             style="fill:#f6f6f6"><animate repeatCount="indefinite" attributeName="d" dur="5s" 
@@ -296,7 +296,7 @@ $conn->close();
 
                 <div class="single_pet">
                     <div class="img">
-                        <img src="/WebPetShop/petShopImages/Img/bird.webp" alt="">
+                        <img src="../petShopImages/Img/bird.webp" alt="">
                         <!-- svg -->
                         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 288 288"><path 
                             style="fill:#f6f6f6"><animate repeatCount="indefinite" attributeName="d" dur="5s" 
@@ -321,7 +321,7 @@ $conn->close();
 
                 <div class="single_pet">
                     <div class="img">
-                        <img src="/WebPetShop/petShopImages/Img/rabit.webp" alt="">
+                        <img src="../petShopImages/Img/rabit.webp" alt="">
                         <!-- svg -->
                         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 288 288"><path 
                             style="fill:#f6f6f6"><animate repeatCount="indefinite" attributeName="d" dur="5s" 
@@ -370,7 +370,7 @@ $conn->close();
                 <?php foreach ($feature_products as $product): ?>
                     <div class="fp_items">
                         <div class="img">
-                            <img src="/WebPetShop/petShopImages/Img/<?php echo $product['HinhAnh']; ?>" alt="<?php echo $product['TenSP']; ?>">
+                            <img src="../petShopImages/Img/<?php echo $product['HinhAnh']; ?>" alt="<?php echo $product['TenSP']; ?>">
                             <?php if (isset($product['GiamGia']) && $product['GiamGia'] > 0): ?>
                                 <div class="tag">-<?php echo $product['GiamGia']; ?>% Sale</div>
                             <?php endif; ?>
@@ -412,14 +412,14 @@ $conn->close();
     <section class="w-70">
         <div class="two_banner">
             <div class="img">
-                <img src="/WebPetShop/petShopImages/Img/left_banner.webp" alt="">
+                <img src="../petShopImages/Img/left_banner.webp" alt="">
                 <div class="txt">
                     <h5>Today Only</h5>
                     <h4>Big Sale <br> UP TO 50 %</h4>
                 </div>
             </div>
             <div class="img">
-                <img src="/WebPetShop/petShopImages/Img/right_banner.webp" alt="">
+                <img src="../petShopImages/Img/right_banner.webp" alt="">
                 <div class="txt">
                     <h5>Special Offer</h5>
                     <h4>Get An Extra <br> 10% OFF</h4>
@@ -441,7 +441,7 @@ $conn->close();
                 <?php foreach ($latest_products as $product): ?>
                     <div class="lp_items">
                         <div class="img">
-                            <img src="/WebPetShop/petShopImages/Img/<?php echo $product['HinhAnh']; ?>" alt="<?php echo $product['TenSP']; ?>">
+                            <img src="../petShopImages/Img/<?php echo $product['HinhAnh']; ?>" alt="<?php echo $product['TenSP']; ?>">
                             <?php if (isset($product['GiamGia']) && $product['GiamGia'] > 0): ?>
                                 <div class="tag">-<?php echo $product['GiamGia']; ?>%</div>
                             <?php endif; ?>
@@ -481,7 +481,7 @@ $conn->close();
     <!-- Big food banner -->
     <div class="bf_banner">
         <div class="bf_food">
-            <img src="/WebPetShop/petShopImages/Img/big_banner_food.webp" alt="">
+            <img src="../petShopImages/Img/big_banner_food.webp" alt="">
         </div>
         <div class="left_txt">
             <div>
@@ -510,7 +510,7 @@ $conn->close();
     <footer id="footer">
         <div class="footer_top w-70">
             <div class="img">
-                <img src="/WebPetShop/petShopImages/Img/logo.webp" alt="">
+                <img src="../petShopImages/Img/logo.webp" alt="">
             </div>
             <div class="menu">
                 <ul>
