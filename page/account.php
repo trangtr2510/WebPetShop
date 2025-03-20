@@ -4,7 +4,7 @@ include('../config/connectDB.php');
 
 // Check if user is logged in
 if (!isset($_SESSION['ID_ND'])) {
-    header("Location: login.php");
+    header("Location: login_register.php");
     exit();
 }
 
