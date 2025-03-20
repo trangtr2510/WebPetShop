@@ -272,6 +272,189 @@ function sanitize_input($input) {
     return $input;
 }
 
+// =============== Người dùng ===============
+
+// Lấy danh sách người dùng
+function getAllUsers() {
+    global $conn;
+    $query = "SELECT * FROM nguoidung ORDER BY NgayThamGia DESC";
+    $result = mysqli_query($conn, $query);
+    
+    $users = [];
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $users[] = $row;
+        }
+    }
+    
+    return $users;
+}
+
+// Lấy người dùng theo ID
+function getUserById($id) {
+    global $conn;
+    $id = sanitize($id); // Assuming sanitize function is available from admin_functions.php
+    
+    $query = "SELECT * FROM nguoidung WHERE ID_ND = '$id'";
+    $result = mysqli_query($conn, $query);
+    
+    if (mysqli_num_rows($result) > 0) {
+        return mysqli_fetch_assoc($result);
+    }
+    
+    return null;
+}
+
+// Thêm người dùng mới
+function addUser($name, $email, $password, $role) {
+    global $conn;
+    
+    $name = sanitize($name);
+    $email = sanitize($email);
+    $role = sanitize($role);
+    
+    // Check if email already exists
+    $checkQuery = "SELECT * FROM nguoidung WHERE Email = '$email'";
+    $checkResult = mysqli_query($conn, $checkQuery);
+    
+    if (mysqli_num_rows($checkResult) > 0) {
+        return ['status' => 'error', 'message' => 'Email đã tồn tại trong hệ thống!'];
+    }
+    
+    // Hash password
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    
+    // Current timestamp
+    $date = date('Y-m-d H:i:s');
+    
+    $query = "INSERT INTO nguoidung (HoTen, Email, MatKhau, VaiTro, NgayThamGia) 
+              VALUES ('$name', '$email', '$hashedPassword', '$role', '$date')";
+    
+    if (mysqli_query($conn, $query)) {
+        return ['status' => 'success', 'message' => 'Thêm người dùng thành công!', 'id' => mysqli_insert_id($conn)];
+    } else {
+        error_log("MySQL Error: " . mysqli_error($conn));
+        return ['status' => 'error', 'message' => 'Không thể thêm người dùng: ' . mysqli_error($conn)];
+    }
+}
+
+// Cập nhật người dùng
+function updateUser($id, $name, $email, $password, $role) {
+    global $conn;
+    
+    $id = sanitize($id);
+    $name = sanitize($name);
+    $email = sanitize($email);
+    $role = sanitize($role);
+    
+    // Check if email exists for other users
+    $checkQuery = "SELECT * FROM nguoidung WHERE Email = '$email' AND ID_ND != '$id'";
+    $checkResult = mysqli_query($conn, $checkQuery);
+    
+    if (mysqli_num_rows($checkResult) > 0) {
+        return ['status' => 'error', 'message' => 'Email đã tồn tại trong hệ thống!'];
+    }
+    
+    // Prepare query base
+    $query = "UPDATE nguoidung SET HoTen = '$name', Email = '$email', VaiTro = '$role'";
+    
+    // Add password to query if provided
+    if (!empty($password)) {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $query .= ", MatKhau = '$hashedPassword'";
+    }
+    
+    $query .= " WHERE ID_ND = '$id'";
+    
+    if (mysqli_query($conn, $query)) {
+        return ['status' => 'success', 'message' => 'Cập nhật người dùng thành công!'];
+    } else {
+        error_log("MySQL Error: " . mysqli_error($conn));
+        return ['status' => 'error', 'message' => 'Không thể cập nhật người dùng: ' . mysqli_error($conn)];
+    }
+}
+
+// Xóa người dùng
+function deleteUser($id) {
+    global $conn;
+    $id = sanitize($id);
+    
+    // Check if this is the last admin
+    $checkQuery = "SELECT COUNT(*) as admin_count FROM nguoidung WHERE VaiTro = 'Admin'";
+    $checkResult = mysqli_query($conn, $checkQuery);
+    $adminCount = mysqli_fetch_assoc($checkResult)['admin_count'];
+    
+    $userQuery = "SELECT VaiTro FROM nguoidung WHERE ID_ND = '$id'";
+    $userResult = mysqli_query($conn, $userQuery);
+    $userRole = mysqli_fetch_assoc($userResult)['VaiTro'];
+    
+    if ($adminCount <= 1 && $userRole == 'Admin') {
+        return ['status' => 'error', 'message' => 'Không thể xóa người dùng admin cuối cùng!'];
+    }
+    
+    // Kiểm tra xem người dùng có trong bảng khachhang không và xóa nếu có
+    $checkCustomerQuery = "SELECT COUNT(*) as customer_count FROM khachhang WHERE ID_ND = '$id'";
+    $checkCustomerResult = mysqli_query($conn, $checkCustomerQuery);
+    $customerCount = mysqli_fetch_assoc($checkCustomerResult)['customer_count'];
+    
+    // Bắt đầu transaction để đảm bảo tính toàn vẹn dữ liệu
+    mysqli_begin_transaction($conn);
+    
+    try {
+        // Nếu người dùng là khách hàng, xóa khách hàng trước
+        if ($customerCount > 0) {
+            $deleteCustomerQuery = "DELETE FROM khachhang WHERE ID_ND = '$id'";
+            if (!mysqli_query($conn, $deleteCustomerQuery)) {
+                throw new Exception(mysqli_error($conn));
+            }
+        }
+        
+        // Sau đó xóa người dùng
+        $deleteUserQuery = "DELETE FROM nguoidung WHERE ID_ND = '$id'";
+        if (!mysqli_query($conn, $deleteUserQuery)) {
+            throw new Exception(mysqli_error($conn));
+        }
+        
+        // Nếu mọi thứ thành công, commit transaction
+        mysqli_commit($conn);
+        return ['status' => 'success', 'message' => 'Xóa người dùng thành công!'];
+    } catch (Exception $e) {
+        // Nếu có lỗi, rollback transaction
+        mysqli_rollback($conn);
+        error_log("MySQL Error: " . $e->getMessage());
+        return ['status' => 'error', 'message' => 'Không thể xóa người dùng: ' . $e->getMessage()];
+    }
+}
+
+// Tìm kiếm người dùng
+function searchUsers($searchTerm) {
+    global $conn;
+    
+    $searchTerm = sanitize($searchTerm);
+    
+    $query = "SELECT * FROM nguoidung WHERE 
+              HoTen LIKE '%$searchTerm%' OR 
+              Email LIKE '%$searchTerm%' OR 
+              VaiTro LIKE '%$searchTerm%' 
+              ORDER BY NgayThamGia DESC";
+    
+    $result = mysqli_query($conn, $query);
+    
+    if (!$result) {
+        error_log("MySQL Error in searchUsers: " . mysqli_error($conn));
+        return array();
+    }
+    
+    $users = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $users[] = $row;
+    }
+    
+    return $users;
+}
+
+
+
 // ==================== XỬ LÝ GỬI FORM ====================
 
 // Xử lý việc gửi mẫu sản phẩm
@@ -420,6 +603,60 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pet_action'])) {
             $response = ['status' => 'success', 'message' => 'Thú cưng đã được xóa thành công!'];
         } else {
             $response = ['status' => 'error', 'message' => 'Không thể xóa thú cưng: ' . mysqli_error($conn)];
+        }
+        
+        echo json_encode($response);
+        exit;
+    }
+}
+
+// Xử lý việc gửi mẫu người dùng
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_action'])) {
+    $action = $_POST['user_action'];
+    
+    // Add user
+    if ($action === 'add') {
+        $name = $_POST['user_name'] ?? '';
+        $email = $_POST['user_email'] ?? '';
+        $password = $_POST['user_password'] ?? '';
+        $role = $_POST['user_role'] ?? 'Customer';
+        
+        if (empty($name) || empty($email) || empty($password)) {
+            $response = ['status' => 'error', 'message' => 'Vui lòng điền đầy đủ thông tin người dùng!'];
+        } else {
+            $response = addUser($name, $email, $password, $role);
+        }
+        
+        echo json_encode($response);
+        exit;
+    }
+    
+    // Edit user
+    else if ($action === 'edit') {
+        $id = $_POST['user_id'] ?? '';
+        $name = $_POST['user_name'] ?? '';
+        $email = $_POST['user_email'] ?? '';
+        $password = $_POST['user_password'] ?? '';
+        $role = $_POST['user_role'] ?? 'Customer';
+        
+        if (empty($name) || empty($email) || empty($id)) {
+            $response = ['status' => 'error', 'message' => 'Thông tin người dùng không đầy đủ!'];
+        } else {
+            $response = updateUser($id, $name, $email, $password, $role);
+        }
+        
+        echo json_encode($response);
+        exit;
+    }
+    
+    // Delete user
+    else if ($action === 'delete') {
+        $id = $_POST['user_id'] ?? '';
+        
+        if (empty($id)) {
+            $response = ['status' => 'error', 'message' => 'ID người dùng không hợp lệ!'];
+        } else {
+            $response = deleteUser($id);
         }
         
         echo json_encode($response);

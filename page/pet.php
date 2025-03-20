@@ -108,7 +108,7 @@ mysqli_close($conn);
             </ul>
         </div>
         <div class="header_right">
-            <i class="fa-solid fa-circle-user"></i>
+            <i class="fa-solid fa-circle-user" onclick="window.location.href='account.php'" title = "Account"></i>
             <i class="fa-solid fa-right-from-bracket" onclick="window.location.href='logout.php'" title = "Đăng xuất"></i>
             <div class="container_search">
                 <div class="icon">

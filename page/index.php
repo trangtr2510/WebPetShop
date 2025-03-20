@@ -68,7 +68,7 @@ $reviewCount_feature = count($reviews_feature);
 $averageRating_feature = 0;
 
 if ($reviewCount_feature > 0) {
-    $totalRating = array_sum(array_column($reviews, 'DiemDanhGia'));
+    $totalRating = array_sum(array_column($reviews_feature, 'DiemDanhGia')); // Fixed
     $averageRating_feature = round($totalRating / $reviewCount_feature, 1);
 }
 
@@ -76,7 +76,7 @@ $reviewCount_latest = count($reviews_latest);
 $averageRating_latest = 0;
 
 if ($reviewCount_latest > 0) {
-    $totalRating = array_sum(array_column($reviews, 'DiemDanhGia'));
+    $totalRating = array_sum(array_column($reviews_latest, 'DiemDanhGia')); // Fixed
     $averageRating_latest = round($totalRating / $reviewCount_latest, 1);
 }
 
@@ -118,7 +118,7 @@ $conn->close();
                 <i class="fa-regular fa-heart"></i>
                 <span class="num">3</span>
             </div> -->
-            <i class="fa-solid fa-circle-user"></i>
+            <i class="fa-solid fa-circle-user" onclick="window.location.href='account.php'" title = "Account"></i>
             <i class="fa-solid fa-right-from-bracket" onclick="window.location.href='logout.php'" title = "Đăng xuất"></i>
             <?php if (isset($_SESSION['VaiTro']) && $_SESSION['VaiTro'] == 'Customer'): ?>
                 <div class="rel">

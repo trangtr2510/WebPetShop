@@ -36,6 +36,23 @@ if (isset($_GET['pet_search'])) {
 // Đảm bảo rằng $products và $pets là các mảng ngay cả khi tìm kiếm không trả về kết quả nào.
 if (!is_array($products)) $products = array();
 if (!is_array($pets)) $pets = array();
+
+// Load data
+$users = getAllUsers();
+
+// Khởi tạo biến
+$searchUserTerm = '';
+
+// Xử lý yêu cầu tìm kiếm
+if (isset($_GET['user_search'])) {
+    $searchUserTerm = trim($_GET['user_search']);
+    $users = !empty($searchUserTerm) ? searchUsers($searchUserTerm) : getAllUsers();
+} else {
+    $users = getAllUsers();
+}
+
+// Đảm bảo rằng $users là mảng ngay cả khi tìm kiếm không trả về kết quả nào.
+if (!is_array($users)) $users = array();
 ?>
 
 <!DOCTYPE html>
@@ -46,6 +63,24 @@ if (!is_array($pets)) $pets = array();
     <title>Admin</title>
     <link rel="stylesheet" href="../fontawesome-free-6.4.2-web/css/all.min.css">
     <link rel="stylesheet" href="../style/admin_style.css">
+    <style>
+        .user-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        .user-table th, .user-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .user-table th {
+            background-color: #f9f9f9;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <div class="sidebar">
@@ -77,6 +112,13 @@ if (!is_array($pets)) $pets = array();
                     <span class="nav-item">Quản lý thú cưng</span>
                 </a>
                 <span class="tooltip">Quản lý thú cưng</span>
+            </li>
+            <li>
+                <a href="#" id="user-management-link">
+                    <i class="fa-solid fa-users"></i>
+                    <span class="nav-item">Quản lý người dùng</span>
+                </a>
+                <span class="tooltip">Quản lý người dùng</span>
             </li>
             <li>
                 <a href="#" onclick="window.location.href='index.php'">
@@ -300,6 +342,92 @@ if (!is_array($pets)) $pets = array();
                 </tbody>
             </table>
         </div>
+
+        <!-- User Management Section -->
+        <div class="container" id="user-management">
+            <div class="product-form">
+                <h1>Quản Lý Người Dùng</h1>
+                <form id="user-form" method="POST">
+                    <input type="hidden" name="user_action" value="add">
+                    <input type="hidden" name="user_id" id="user-id" value="">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="user-code">Mã người dùng:</label>
+                                <input type="text" id="user-code" class="form-control" value="Tự động tạo" readonly>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="user-name">Họ tên:</label>
+                                <input type="text" name="user_name" id="user-name" class="form-control" placeholder="Nhập họ tên" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="user-email">Email:</label>
+                                <input type="email" name="user_email" id="user-email" class="form-control" placeholder="Nhập email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="user-password">Mật khẩu:</label>
+                                <input type="password" name="user_password" id="user-password" class="form-control" placeholder="Nhập mật khẩu">
+                                <small>* Để trống nếu không thay đổi mật khẩu</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="user-role">Vai trò:</label>
+                                <select name="user_role" id="user-role" class="form-control" required>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Customer">Customer</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="user-join-date">Ngày tham gia:</label>
+                                <input type="text" id="user-join-date" class="form-control" value="Tự động tạo" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button type="submit" id="user-add-btn" class="btn btn-add">Thêm</button>
+                        <button type="button" id="user-edit-btn" class="btn btn-edit">Sửa</button>
+                        <button type="button" id="user-delete-btn" class="btn btn-delete">Xóa</button>
+                        <button type="button" id="user-reset-btn" class="btn">Làm mới</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="search-container">
+                <form action="" method="GET">
+                    <input type="text" name="user_search" placeholder="Tìm kiếm người dùng..." value="<?php echo htmlspecialchars($searchUserTerm); ?>">
+                    <button type="submit"><i class="fa fa-search"></i> Tìm kiếm</button>
+                </form>
+            </div>
+            
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>Mã ND</th>
+                        <th>Họ tên</th>
+                        <th>Email</th>
+                        <th>Vai trò</th>
+                        <th>Ngày tham gia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($users as $user): ?>
+                    <tr data-id="<?php echo $user['ID_ND']; ?>">
+                        <td><?php echo $user['ID_ND']; ?></td>
+                        <td><?php echo $user['HoTen']; ?></td>
+                        <td><?php echo $user['Email']; ?></td>
+                        <td><?php echo $user['VaiTro']; ?></td>
+                        <td><?php echo $user['NgayThamGia']; ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 
     <script>
@@ -315,17 +443,27 @@ if (!is_array($pets)) $pets = array();
             e.preventDefault();
             document.getElementById('product-management').style.display = 'block';
             document.getElementById('pet-management').style.display = 'none';
+            document.getElementById('user-management').style.display = 'none';
         });
         
         document.getElementById('pet-management-link').addEventListener('click', function(e) {
             e.preventDefault();
             document.getElementById('product-management').style.display = 'none';
             document.getElementById('pet-management').style.display = 'block';
+            document.getElementById('user-management').style.display = 'none';
+        });
+
+        document.getElementById('user-management-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('user-management').style.display = 'block';
+            document.getElementById('product-management').style.display = 'none';
+        document.getElementById('pet-management').style.display = 'none';
         });
         
         // Mặc định hiển thị quản lý sản phẩm
         document.getElementById('product-management').style.display = 'block';
         document.getElementById('pet-management').style.display = 'none';
+        document.getElementById('user-management').style.display = 'none';
         
         // Chức năng xem trước hình ảnh
         document.getElementById('product-image').addEventListener('change', function(e) {
@@ -533,6 +671,93 @@ if (!is_array($pets)) $pets = array();
         document.getElementById('product-delete-btn').style.display = 'none';
         document.getElementById('pet-edit-btn').style.display = 'none';
         document.getElementById('pet-delete-btn').style.display = 'none';
+
+        // Chức năng của hình thức người dùng
+        const userForm = document.getElementById('user-form');
+        const userResetBtn = document.getElementById('user-reset-btn');
+        const userEditBtn = document.getElementById('user-edit-btn');
+        const userDeleteBtn = document.getElementById('user-delete-btn');
+        
+        // Đặt lại mẫu người dùng
+        function resetUserForm() {
+            userForm.reset();
+            document.getElementById('user-id').value = '';
+            document.getElementById('user-code').value = 'Tự động tạo';
+            document.getElementById('user-join-date').value = 'Tự động tạo';
+            userForm.querySelector('input[name="user_action"]').value = 'add';
+            document.getElementById('user-password').required = true;
+            document.getElementById('user-add-btn').style.display = 'inline-block';
+            userEditBtn.style.display = 'none';
+            userDeleteBtn.style.display = 'none';
+        }
+        
+        userResetBtn.addEventListener('click', resetUserForm);
+        
+        // Chọn hàng người dùng
+        document.querySelector('.user-table tbody').addEventListener('click', function(e) {
+            const row = e.target.closest('tr');
+            if (row) {
+                const id = row.getAttribute('data-id');
+                const cells = row.querySelectorAll('td');
+                
+                document.getElementById('user-id').value = id;
+                document.getElementById('user-code').value = id;
+                document.getElementById('user-name').value = cells[1].textContent;
+                document.getElementById('user-email').value = cells[2].textContent;
+                document.getElementById('user-role').value = cells[3].textContent;
+                document.getElementById('user-join-date').value = cells[4].textContent;
+                
+                userForm.querySelector('input[name="user_action"]').value = 'edit';
+                document.getElementById('user-password').required = false;
+                document.getElementById('user-add-btn').style.display = 'none';
+                userEditBtn.style.display = 'inline-block';
+                userDeleteBtn.style.display = 'inline-block';
+            }
+        });
+        
+        // Handle user edit
+        userEditBtn.addEventListener('click', function() {
+            userForm.querySelector('input[name="user_action"]').value = 'edit';
+            submitUserForm();
+        });
+        
+        // Handle user delete
+        userDeleteBtn.addEventListener('click', function() {
+            if (confirm('Bạn có chắc chắn muốn xóa người dùng này?')) {
+                userForm.querySelector('input[name="user_action"]').value = 'delete';
+                submitUserForm();
+            }
+        });
+        
+        // Submit user form with AJAX
+        function submitUserForm() {
+            const formData = new FormData(userForm);
+            
+            fetch('admin_user_functions.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                if (data.status === 'success') {
+                    location.reload(); // Reload page to see changes
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Đã xảy ra lỗi khi xử lý yêu cầu.');
+            });
+        }
+        
+        userForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            submitUserForm();
+        });
+        
+        // Initialize: Hide edit and delete buttons on load
+        document.getElementById('user-edit-btn').style.display = 'none';
+        document.getElementById('user-delete-btn').style.display = 'none';
     </script>
 </body>
 </html>
